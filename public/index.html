@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Study Flashcards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 History Study Flashcards</h1>
+            <p>Master AP US History with interactive flashcards organized by units</p>
+        </header>
+
+        <div class="unit-selector">
+            <label for="unitSelect">Select Unit to Study:</label>
+            <select id="unitSelect" class="unit-dropdown">
+                <option value="">Choose a unit...</option>
+                <option value="Unit 1: Early Colonial Period (1492-1607)">Unit 1: Early Colonial Period (1492-1607)</option>
+                <option value="Unit 2: Colonial Development (1607-1754)">Unit 2: Colonial Development (1607-1754)</option>
+                <option value="Unit 3: Road to Revolution (1754-1800)">Unit 3: Road to Revolution (1754-1800)</option>
+                <option value="Unit 4: Early Republic (1800-1848)">Unit 4: Early Republic (1800-1848)</option>
+                <option value="Unit 5: Antebellum Period (1844-1877)">Unit 5: Antebellum Period (1844-1877)</option>
+                <option value="Unit 6: Gilded Age (1865-1898)">Unit 6: Gilded Age (1865-1898)</option>
+                <option value="Unit 7: Progressive Era (1890-1945)">Unit 7: Progressive Era (1890-1945)</option>
+                <option value="Unit 8: Cold War Era (1945-1980)">Unit 8: Cold War Era (1945-1980)</option>
+                <option value="Unit 9: Modern Era (1980-Present)">Unit 9: Modern Era (1980-Present)</option>
+            </select>
+        </div>
+
+        <div class="unit-info">
+            <h3>Unit Information</h3>
+            <div class="unit-stats">
+                <div class="unit-stat">
+                    <strong>Total Units:</strong> <span id="totalUnits">9</span>
+                </div>
+                <div class="unit-stat">
+                    <strong>Total Terms:</strong> <span id="totalTerms">0</span>
+                </div>
+                <div class="unit-stat">
+                    <strong>Current Unit:</strong> <span id="currentUnit">None</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-front" id="cardFront">
+                    <h2>Welcome to History Flashcards!</h2>
+                    <p>Select a unit to begin studying!</p>
+                </div>
+                <div class="card-back" id="cardBack">
+                    <h2>Getting Started</h2>
+                    <p>1. Choose a unit from the dropdown above<br>
+                       2. The unit will load automatically<br>
+                       3. Click cards to flip and reveal details<br>
+                       4. Use navigation buttons or arrow keys</p>
+                    <div style="margin-top: 20px; text-align: left; font-size: 0.9rem;">
+                        <strong>Available Units:</strong><br>
+                        • Unit 1: Early Colonial Period (1492-1607)<br>
+                        • Unit 2: Colonial Development (1607-1754)<br>
+                        • Unit 3: Road to Revolution (1754-1800)<br>
+                        • And more...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn btn-secondary">⬅️ Previous</button>
+            <button id="flipBtn" class="btn btn-primary">🔄 Flip Card</button>
+            <button id="nextBtn" class="btn btn-secondary">Next ➡️</button>
+        </div>
+
+
+
+        <div class="navigation">
+            <button id="shuffleBtn" class="btn btn-secondary">🔀 Shuffle</button>
+            <button id="resetBtn" class="btn btn-secondary">🔄 Reset Progress</button>
+            <div class="progress-info">
+                <div id="currentUnitName" class="unit-name">No unit selected</div>
+                <span id="progressText">0 / 0</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <h3>Study Statistics</h3>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Correct:</span>
+                    <span class="stat-value" id="correctCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Incorrect:</span>
+                    <span class="stat-value" id="incorrectCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Accuracy:</span>
+                    <span class="stat-value" id="accuracyPercent">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="history-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
