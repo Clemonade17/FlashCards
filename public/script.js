@@ -143,7 +143,15 @@ class FlashcardApp {
     nextCard() {
         if (this.flashcards.length === 0) return;
         
-        this.currentIndex = (this.currentIndex + 1) % this.flashcards.length;
+        // Check if this was the last card in the unit
+        if (this.currentIndex === this.flashcards.length - 1) {
+            // Unit completed! Show completion message
+            this.showUnitCompletedMessage();
+            return;
+        }
+        
+        // Move to next card
+        this.currentIndex++;
         this.updateDisplay();
         this.updateNavigationButtons();
     }
@@ -351,6 +359,84 @@ class FlashcardApp {
         setTimeout(() => {
             successDiv.remove();
         }, 3000);
+    }
+
+    showUnitCompletedMessage() {
+        const cardFront = document.getElementById('cardFront');
+        const cardBack = document.getElementById('cardBack');
+
+        // Front of card - celebration message
+        cardFront.innerHTML = `
+            <h2>🎉 Unit Completed! 🎉</h2>
+            <p>Congratulations! You've finished studying this unit.</p>
+        `;
+
+        // Back of card - summary and options
+        cardBack.innerHTML = `
+            <div class="term-details">
+                <h3>Unit Summary</h3>
+                <div style="text-align: center; margin: 20px 0;">
+                    <p><strong>${this.currentUnit}</strong></p>
+                    <p>Total Terms: ${this.flashcards.length}</p>
+                    <p>Correct: ${this.stats.correct}</p>
+                    <p>Incorrect: ${this.stats.incorrect}</p>
+                    <p>Accuracy: ${this.stats.total > 0 ? Math.round((this.stats.correct / this.stats.total) * 100) : 0}%</p>
+                </div>
+            </div>
+            <div class="study-controls">
+                <button id="restartBtn" class="btn btn-primary">🔄 Restart Unit</button>
+                <button id="newUnitBtn" class="btn btn-success">📚 Study New Unit</button>
+            </div>
+        `;
+
+        // Update progress to show completion
+        document.getElementById('progressText').textContent = `${this.flashcards.length} / ${this.flashcards.length}`;
+        document.getElementById('progressFill').style.width = '100%';
+
+        // Add event listeners for the completion buttons
+        this.addCompletionButtonListeners();
+    }
+
+    addCompletionButtonListeners() {
+        const restartBtn = document.getElementById('restartBtn');
+        const newUnitBtn = document.getElementById('newUnitBtn');
+        
+        if (restartBtn) {
+            restartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.restartCurrentUnit();
+            });
+        }
+        if (newUnitBtn) {
+            newUnitBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.selectNewUnit();
+            });
+        }
+    }
+
+    restartCurrentUnit() {
+        this.currentIndex = 0;
+        this.stats.correct = 0;
+        this.stats.incorrect = 0;
+        this.saveStats();
+        this.updateDisplay();
+        this.updateStats();
+        this.showSuccessMessage('Unit restarted! Good luck!');
+    }
+
+    selectNewUnit() {
+        // Reset to welcome state so user can select a new unit
+        this.flashcards = [];
+        this.currentIndex = 0;
+        this.currentUnit = "";
+        this.stats.total = 0;
+        this.stats.correct = 0;
+        this.stats.incorrect = 0;
+        this.saveStats();
+        this.showWelcomeMessage();
+        this.updateStats();
+        this.showSuccessMessage('Select a new unit to continue studying!');
     }
 
     saveStats() {
